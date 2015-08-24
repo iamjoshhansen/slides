@@ -1,0 +1,71 @@
+body {
+	display: table;
+	width: 100%;
+	height: 100%;
+
+	/*width: 1920px;
+	height: 1080px;
+	transform-origin: 0 0;
+	overflow: hidden;*/
+	background: #000;
+}
+
+div.line-wrapper {
+	vertical-align: middle;
+	display: table-cell;
+	text-align: center;
+}
+
+div.line {
+	overflow: hidden;
+	font-size: 6.4rem;
+	margin: 0 10rem;
+	color: #ccc;
+	box-sizing: border-box;
+}
+
+div.line-wrapper div.line.animated {
+	transition: all 250ms ease-in-out;
+}
+
+div.line-wrapper div.line.hidden {
+	display: none;
+}
+
+div.line-wrapper div.line.invisible {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: -99999px;
+	width: 100%;
+}
+
+div.line-wrapper div.line.type-title {
+	font-size: 16.4rem;
+	font-family: Lato;
+	font-weight: 100;
+}
+
+div.line-wrapper div.line.type-note {
+	text-align: left;
+}
+
+div.line-wrapper div.line.type-music {
+	text-align: left;
+}
+
+div.line-wrapper div.line.type-point {
+	text-align: left;
+	font-size: 8.2rem;
+	font-family: Lato;
+	font-weight: 100;
+	
+	padding-left: 8rem;
+	text-indent: -8rem;
+	margin-bottom: 2rem;
+}
+
+div.line-wrapper div.line.type-verse {
+	text-align: right;
+	color: #777;
+}

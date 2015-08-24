@@ -1,0 +1,57 @@
+<html>
+<head>
+
+<title>Josh's Node App</title>
+
+<link rel="stylesheet" href="css/site.css" />
+<link rel="stylesheet" href="css/presenter.css" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+</head>
+<body>
+
+<script type="text/javascript">
+var app = {};
+
+(function () {
+
+	var node_location = '//' + window.location.hostname + ':3000/',
+		scripts = [
+			"js/jquery-2.1.4.min.js",
+			"js/lodash.js",
+			"js/backbone-min.js",
+			"js/mustache.min.js",
+			node_location + 'socket.io/socket.io.js',
+			"../shared/slides.js",
+			"js/presenter.js"
+		];
+
+	function loadJS (filename, callback) {
+		console.log("Loading: ", filename);
+		var elem = document.createElement('script');
+		elem.setAttribute("type","text/javascript");
+		elem.setAttribute("src", filename);
+		elem.onload = callback || function () {};
+		document.getElementsByTagName("head")[0].appendChild(elem);
+	}
+
+	var cursor = -1;
+	function loadNext ()
+	{
+		if (scripts[cursor] == node_location + 'socket.io/socket.io.js')
+			app.socket = io(node_location);
+
+		cursor++;
+		if (cursor < scripts.length)
+			loadJS(scripts[cursor], loadNext);
+	}
+	loadNext();
+
+
+})();
+</script>
+</body>
+</html>

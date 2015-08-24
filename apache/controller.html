@@ -1,0 +1,82 @@
+<html>
+<head>
+
+<title>Josh's Node App</title>
+
+<link rel="stylesheet" href="css/site.css" />
+<link rel="stylesheet" href="css/controller.css" />
+
+<script type="text/html" id="template">
+	<div class="left-side">
+		<a href="javascript:;" class="button" data-value="live">live</a>
+		<a href="javascript:;" class="button" data-value="solo">solo</a>
+		<select data-value="type">
+			<option>title</option>
+			<option>point</option>
+			<option>content</option>
+			<option>verse</option>
+			<option>note</option>
+			<option>music</option>
+			<option>countdown</option>
+		</select>
+		<a href="javascript:;" class="button" data-action="insert-below">+&darr;</a>
+		<a href="javascript:;" class="button" data-action="remove">-</a>
+		<a href="javascript:;" class="save button" data-action="publish">save</a>
+	</div>
+	<div class="right-side">
+		<div class="content" contenteditable="true"></div>
+	</div>
+</script>
+
+</head>
+<body>
+
+<header>
+	<h1>Josh's Presenter</h1>
+	<a href="javascript:;" class="button" data-action="save">save</a>
+</header>
+
+<div id="lines"></div>
+
+<script type="text/javascript">
+var app = {};
+
+(function () {
+	
+	var node_location = '//' + window.location.hostname + ':3000/',
+		scripts = [
+			"js/jquery-2.1.4.min.js",
+			"js/lodash.js",
+			"js/backbone-min.js",
+			"js/mustache.min.js",
+			node_location + 'socket.io/socket.io.js',
+			"../shared/slides.js",
+			"js/controller.js"
+		];
+
+	function loadJS (filename, callback) {
+		console.log("Loading: ", filename);
+		var elem = document.createElement('script');
+		elem.setAttribute("type","text/javascript");
+		elem.setAttribute("src", filename);
+		elem.onload = callback || function () {};
+		document.getElementsByTagName("head")[0].appendChild(elem);
+	}
+
+	var cursor = -1;
+	function loadNext ()
+	{
+		if (scripts[cursor] == node_location + 'socket.io/socket.io.js')
+			app.socket = io(node_location);
+
+		cursor++;
+		if (cursor < scripts.length)
+			loadJS(scripts[cursor], loadNext);
+	}
+	loadNext();
+
+
+})();
+</script>
+</body>
+</html>
